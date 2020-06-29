@@ -116,9 +116,15 @@ export default function TextToMorse() {
     return cont;
   }
 
+  function play() {
+    globalAudioContext.resume();
+  }
+
   return (
     <>
-      <div>Hello from TextToMorse</div>
+      <div>
+        Hello from TextToMorse<button onClick={play}>Play</button>
+      </div>
     </>
   );
 }
