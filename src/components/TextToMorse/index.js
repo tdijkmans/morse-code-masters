@@ -1,8 +1,12 @@
 import React from "react";
+import Output from '../Output'
 
-export default function TextToMorse() {
+export default function TextToMorse(props) {
   var globalAudioContext = new window.AudioContext();
-  const result = morsecode("Robbert en Thomas");
+  const result = morsecode('');
+  console.log('props?', props)
+  console.log('???', props.abortListen)
+
 
   function morsecode(text, unit, freq) {
     "use strict";
@@ -116,9 +120,15 @@ export default function TextToMorse() {
     return cont;
   }
 
+
+
+
   return (
     <>
-      <div>Hello from TextToMorse</div>
+      <div>Hello from Morse</div>
+      <button onClick={e=>{morsecode('sos')}}>resume</button>
+      <button onClick={e=>{props.abortListen()}}>abort</button>
+      <button onClick={e=>{morsecode(props[0])}}>startmaar</button>
     </>
   );
 }

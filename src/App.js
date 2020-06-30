@@ -7,8 +7,8 @@ import TextToMorse from "../src/components/TextToMorse";
 function App() {
   return (
     <div className="App">
-      {/* <SpeechRecognition /> */}
-      <TextToMorse />
+      <SpeechRecognition />
+     
     </div>
   );
 }
