@@ -118,9 +118,9 @@ export default function TextToMorse(props) {
     makecode(text);
 
     // return web audio context for reuse / control
-    return { cont, MorseCodeToDisplay };
+    return cont;
   }
-  const morseCode = morsecode(props.transcript);
+
   return (
     <>
       <div>Hello from Morse</div>
@@ -133,26 +133,25 @@ export default function TextToMorse(props) {
       </button>
       <button
         onClick={(e) => {
+          props.startListen();
+        }}
+      >
+        Record
+      </button>
+      <button
+        onClick={(e) => {
           props.abortListen();
         }}
       >
-        abort
+        Stop Record
       </button>
       <button
         onClick={(e) => {
           morsecode(props.transcript);
         }}
       >
-        toMorseCode
+        Play Morse Code Sound
       </button>
-      <button
-        onClick={(e) => {
-          props.startListen();
-        }}
-      >
-        startmaar
-      </button>
-      <h3>{morseCode.MorseCodeToDisplay}</h3>
     </>
   );
 }

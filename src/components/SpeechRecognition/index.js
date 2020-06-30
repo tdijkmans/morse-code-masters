@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
 import TextToMorse from "../TextToMorse";
+import TranscriptToMorseCode from "../TranscriptToMorseCode";
+
+const options = {
+  autoStart: false,
+};
 
 const propTypes = {
   // Props injected by SpeechRecognition
@@ -31,6 +36,7 @@ const Dictaphone = ({
         abortListen={abortListening}
         startListen={startListening}
       />
+      <TranscriptToMorseCode transcript={transcript} />
       <span>{transcript}</span>
     </div>
   );
@@ -38,4 +44,4 @@ const Dictaphone = ({
 
 Dictaphone.propTypes = propTypes;
 
-export default SpeechRecognition(Dictaphone);
+export default SpeechRecognition(options)(Dictaphone);
