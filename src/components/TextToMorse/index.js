@@ -1,12 +1,11 @@
 import React from "react";
-import Output from '../Output'
+import Output from "../Output";
 
 export default function TextToMorse(props) {
   var globalAudioContext = new window.AudioContext();
-  const result = morsecode('');
-  console.log('props?', props)
-  console.log('???', props.abortListen)
-
+  const result = morsecode("");
+  console.log("props?", props);
+  console.log("???", props.abortListen);
 
   function morsecode(text, unit, freq) {
     "use strict";
@@ -56,12 +55,14 @@ export default function TextToMorse(props) {
       8: "___..",
       9: "____.",
     };
-
+    let MorseCodeToDisplay = [];
     // generate code for text
     function makecode(data) {
       for (var i = 0; i <= data.length; i++) {
         var codedata = data.substr(i, 1).toLowerCase();
+
         codedata = code[codedata];
+        MorseCodeToDisplay.push(codedata);
         // recognised character
         if (codedata !== undefined) {
           maketime(codedata);
@@ -117,18 +118,41 @@ export default function TextToMorse(props) {
     makecode(text);
 
     // return web audio context for reuse / control
-    return cont;
+    return { cont, MorseCodeToDisplay };
   }
-
-
-
-
+  const morseCode = morsecode(props.transcript);
   return (
     <>
       <div>Hello from Morse</div>
-      <button onClick={e=>{morsecode('sos')}}>resume</button>
-      <button onClick={e=>{props.abortListen()}}>abort</button>
-      <button onClick={e=>{morsecode(props[0])}}>startmaar</button>
+      <button
+        onClick={(e) => {
+          morsecode("sos");
+        }}
+      >
+        SOS Test
+      </button>
+      <button
+        onClick={(e) => {
+          props.abortListen();
+        }}
+      >
+        abort
+      </button>
+      <button
+        onClick={(e) => {
+          morsecode(props.transcript);
+        }}
+      >
+        toMorseCode
+      </button>
+      <button
+        onClick={(e) => {
+          props.startListen();
+        }}
+      >
+        startmaar
+      </button>
+      <h3>{morseCode.MorseCodeToDisplay}</h3>
     </>
   );
 }

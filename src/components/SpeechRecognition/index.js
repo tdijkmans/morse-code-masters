@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
-import TextToMorse from '../TextToMorse'
-
+import TextToMorse from "../TextToMorse";
 
 const propTypes = {
   // Props injected by SpeechRecognition
@@ -10,14 +9,15 @@ const propTypes = {
   resetTranscript: PropTypes.func,
   browserSupportsSpeechRecognition: PropTypes.bool,
   abortListening: PropTypes.func,
+  startListening: PropTypes.func,
 };
-
 
 const Dictaphone = ({
   transcript,
   resetTranscript,
   browserSupportsSpeechRecognition,
   abortListening,
+  startListening,
 }) => {
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -26,7 +26,11 @@ const Dictaphone = ({
   return (
     <div>
       <button onClick={resetTranscript}>Reset</button>
-      {/* <TextToMorse {...transcript} abortListen = {abortListening} /> */}
+      <TextToMorse
+        transcript={transcript}
+        abortListen={abortListening}
+        startListen={startListening}
+      />
       <span>{transcript}</span>
     </div>
   );
