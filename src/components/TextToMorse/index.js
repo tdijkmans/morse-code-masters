@@ -11,8 +11,8 @@ export default function TextToMorse(props) {
     "use strict";
 
     // defaults
-    unit = unit ? unit : 0.05;
-    freq = freq ? freq : 700;
+    unit = unit ? unit : 0.10;
+    freq = freq ? freq : 50;
     var cont = globalAudioContext;
     var time = cont.currentTime;
 
@@ -116,7 +116,7 @@ export default function TextToMorse(props) {
 
     // begin encoding: text -> code -> time -> tone
     makecode(text);
-
+    console.log('time is ', time);
     // return web audio context for reuse / control
     return cont;
   }
