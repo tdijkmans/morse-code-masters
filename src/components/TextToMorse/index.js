@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Output from "../Output";
+import LightHouse from '../LightHouse'
 
 export default function TextToMorse(props) {
   var globalAudioContext = new window.AudioContext();
   const result = morsecode("");
+  let morseChar = [];
   console.log("props?", props);
-  console.log("???", props.abortListen);
+  console.log("??? morsechar???", morseChar);
 
   function morsecode(text, unit, freq) {
     "use strict";
@@ -79,6 +81,13 @@ export default function TextToMorse(props) {
       for (var i = 0; i <= data.length; i++) {
         var timedata = data.substr(i, 1);
         timedata = timedata === "." ? 1 : timedata === "_" ? 3 : 0;
+        timedata === 1 ? morseChar.push('short') : timedata === 3 ? morseChar.push('long') : morseChar.push('niks');
+        const bla = "bla";
+        console.log('rendered', bla)
+
+        
+
+
         timedata *= unit;
         if (timedata > 0) {
           maketone(timedata);
@@ -90,11 +99,14 @@ export default function TextToMorse(props) {
       // char gap
       time += unit * 2;
     }
-
+    
     // generate tone for time
     function maketone(data) {
       var start = time;
       var stop = time + data;
+      console.log('start is', start)
+      console.log('stop is', stop)
+    
       // filter: envelope the tone slightly
       gain.gain.linearRampToValueAtTime(0, start);
       gain.gain.linearRampToValueAtTime(1, start + unit / 8);
@@ -116,11 +128,12 @@ export default function TextToMorse(props) {
 
     // begin encoding: text -> code -> time -> tone
     makecode(text);
-    console.log('time is ', time);
+    
     // return web audio context for reuse / control
     return cont;
   }
 
+  
   return (
     <>
       <div>Hello from Morse</div>
@@ -152,6 +165,9 @@ export default function TextToMorse(props) {
       >
         Play Morse Code Sound
       </button>
+      <LightHouse morseChar={morseChar} />
     </>
+
+    
   );
 }

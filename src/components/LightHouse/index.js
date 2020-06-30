@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 
 
-export default function LightHouse() {
+export default function LightHouse({bla,morseChar}) {
+
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
@@ -16,11 +17,18 @@ export default function LightHouse() {
                              
     
     }) 
-
+    function morseCharLoaded(){
+    
+   
+    
+}
+    
     return (
         <div>
             <button onClick={e=>toggle()}>toggle</button>
             <animated.div style={props}>i will fade</animated.div> 
+            <span>{bla}</span>
+        {morseChar}
         </div>
     )
 }
