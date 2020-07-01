@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
-import TextToMorse from "../TextToMorse";
-import TranscriptToMorseCode from "../TranscriptToMorseCode";
+import TextToMorse from "../MorseToSound";
+import TranscriptToMorseCode from "../TranscriptToMorseCharacters";
 
 const options = {
   autoStart: false,

@@ -50,8 +50,9 @@ export default function TranscriptToMorseCode(props) {
       MorseCodeToDisplay.push(codedata);
       // recognised character
     }
+    console.log(MorseCodeToDisplay);
     return MorseCodeToDisplay;
   }
 
-  return <div>{makecode(props.transcript)}</div>;
+  return <h3>{makecode(props.transcript)}</h3>;
 }

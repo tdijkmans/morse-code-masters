@@ -1,15 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 import SpeechRecognition from "../src/components/SpeechRecognition";
-import TextToMorse from "../src/components/TextToMorse";
-import LightHouse from './components/LightHouse'
+import TextToMorse from "./components/MorseToSound";
+
 
 function App() {
   return (
     <div className="App">
       <SpeechRecognition />
-      <LightHouse />
+     
      
     </div>
   );
