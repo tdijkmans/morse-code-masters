@@ -50,9 +50,9 @@ export default function TranscriptToMorseCharacters(props) {
 
       let convertedChar = conversionTable[toConvertChar];
       if (convertedChar === undefined) {
-        convertedChar = "X";
+        convertedChar = " ";
       }
-      console.log(convertedChar);
+    
       morseString.push(convertedChar);
       // recognised character
     }
