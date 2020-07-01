@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
-import TextToMorse from "../MorseToSound";
-import TranscriptToMorseCode from "../TranscriptToMorseCharacters";
+import MorseToSound from "../MorseToSound";
+import TranscriptToMorseCharacters from "../TranscriptToMorseCharacters";
 
 const options = {
   autoStart: false,
@@ -31,13 +31,13 @@ const Dictaphone = ({
   return (
     <div>
       <button onClick={resetTranscript}>Reset</button>
-      <TextToMorse
+      <MorseToSound
         transcript={transcript}
         abortListen={abortListening}
         startListen={startListening}
       />
-      <TranscriptToMorseCode transcript={transcript} />
-      <span>{transcript}</span>
+      <h3>Transcript: {transcript}</h3>
+      <TranscriptToMorseCharacters transcript={transcript} />
     </div>
   );
 };

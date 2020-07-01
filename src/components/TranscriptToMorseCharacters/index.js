@@ -1,8 +1,9 @@
 import React from "react";
+import MorseToAnimation from "../MorseToAnimation";
 
-export default function TranscriptToMorseCode(props) {
+export default function TranscriptToMorseCharacters(props) {
   // morsecode
-  var code = {
+  var conversionTable = {
     a: "._",
     b: "_...",
     c: "_._.",
@@ -40,19 +41,31 @@ export default function TranscriptToMorseCode(props) {
     8: "___..",
     9: "____.",
   };
-  let MorseCodeToDisplay = [];
-  // generate code for text
-  function makecode(data) {
-    for (var i = 0; i <= data.length; i++) {
-      var codedata = data.substr(i, 1).toLowerCase();
 
-      codedata = code[codedata];
-      MorseCodeToDisplay.push(codedata);
+  // generate code for text
+  function convertToMorse(transcript) {
+    let morseString = [];
+    for (var i = 0; i <= transcript.length; i++) {
+      let toConvertChar = transcript.substr(i, 1).toLowerCase();
+
+      let convertedChar = conversionTable[toConvertChar];
+      if (convertedChar === undefined) {
+        convertedChar = "X";
+      }
+      console.log(convertedChar);
+      morseString.push(convertedChar);
       // recognised character
     }
-    console.log(MorseCodeToDisplay);
-    return MorseCodeToDisplay;
+
+    return morseString;
   }
 
-  return <h3>{makecode(props.transcript)}</h3>;
+  const morseString = convertToMorse(props.transcript);
+
+  return (
+    <>
+      <h3>Transcript To Morse: {morseString}</h3>
+      <MorseToAnimation morseString={morseString} />
+    </>
+  );
 }

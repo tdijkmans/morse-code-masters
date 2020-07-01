@@ -1,21 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
-
-import { useSpring, animated } from 'react-spring'
-
-export default function TextToMorse(props) {
-
-  
+export default function MorseToSound(props) {
   var globalAudioContext = new window.AudioContext();
-  const result = morsecode("");
-  let morseChar = [];
-
 
   function morsecode(text, unit, freq) {
-    "use strict";
-
     // defaults
-    unit = unit ? unit : 0.10;
+    unit = unit ? unit : 0.1;
     freq = freq ? freq : 50;
     var cont = globalAudioContext;
     var time = cont.currentTime;
@@ -66,7 +56,7 @@ export default function TextToMorse(props) {
         var codedata = data.substr(i, 1).toLowerCase();
 
         codedata = code[codedata];
-      
+
         // recognised character
         if (codedata !== undefined) {
           maketime(codedata);
@@ -83,17 +73,11 @@ export default function TextToMorse(props) {
       for (var i = 0; i <= data.length; i++) {
         var timedata = data.substr(i, 1);
         timedata = timedata === "." ? 1 : timedata === "_" ? 3 : 0;
-     
-      
-
-        
-
 
         timedata *= unit;
         if (timedata > 0) {
           maketone(timedata);
-         
-          
+
           time += timedata;
           // tone gap
           time += unit * 1;
@@ -102,21 +86,18 @@ export default function TextToMorse(props) {
       // char gap
       time += unit * 2;
     }
-    
+
     // generate tone for time
     function maketone(data) {
       var start = time;
       var stop = time + data;
 
-    
       // filter: envelope the tone slightly
       gain.gain.linearRampToValueAtTime(0, start);
       gain.gain.linearRampToValueAtTime(1, start + unit / 8);
       gain.gain.linearRampToValueAtTime(1, stop - unit / 16);
       gain.gain.linearRampToValueAtTime(0, stop);
-         // toggle achtergrond rood
-    
-   
+      // toggle achtergrond rood
     }
 
     // create: oscillator, gain, destination
@@ -133,16 +114,15 @@ export default function TextToMorse(props) {
 
     // begin encoding: text -> code -> time -> tone
     makecode(text);
-   
+
     // return web audio context for reuse / control
     return cont;
   }
 
-  
   return (
     <>
       <div>Hello from Morse</div>
-    
+
       <button
         onClick={(e) => {
           morsecode("sos");
@@ -171,9 +151,6 @@ export default function TextToMorse(props) {
       >
         Play Morse Code Sound
       </button>
-   
     </>
-
-    
   );
 }
