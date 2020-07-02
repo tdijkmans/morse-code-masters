@@ -36,18 +36,21 @@ const Dictaphone = ({
 }) => {
   //ANIMATIONS
   const [color, setColor] = useState("");
-  const [name, setName] = useState("");
+  const [nameOfCharPlaying, setNameOfCharPlaying] = useState("");
   const [url, setUrl] = useState(off);
+  const [classNameButton, setClassNameButton] = useState('start')
+  const [classNamePlayButton, setClassNamePlayButton ] = useState('hide')
+  const [h3content, setH3Content ] = useState(`press 🔴 record to start`)
   const style = {
     textAlign: "center",
     backgroundImage: `url(${url})`,
-    backgroundColor: "white",
+    backgroundColor: "#222224",
     minHeight: "100vh",
     minWidth: "100vw",
     backgroundRepeat: "no-repeat",
     backgroundSize: "auto",
     margin: "0",
-    position: "relative",
+    backgroundPosition: "center",
   };
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -82,25 +85,25 @@ const Dictaphone = ({
 
   function colorShort() {
     setColor("green");
-    setName(".");
+    setNameOfCharPlaying(".");
     setUrl(short);
   }
 
   function colorLong() {
     setColor("purple");
-    setName("_");
+    setNameOfCharPlaying("_");
     setUrl(long);
   }
 
   function colorSpace() {
     setColor("red");
-    setName("space");
+    setNameOfCharPlaying("─");
     setUrl(off);
   }
 
   function soundOff() {
     setColor("brown");
-    setName(" ");
+    setNameOfCharPlaying(" ");
   }
 
   function animationStart() {
@@ -114,6 +117,13 @@ const Dictaphone = ({
         soundSpace();
       }
     });
+  }
+
+  function afterRecord(){
+    setClassNameButton('hide');
+    setClassNamePlayButton('green')
+    setH3Content(`press 🟢 to start playing`)
+    
   }
 
   return (
@@ -151,13 +161,28 @@ const Dictaphone = ({
       </button>
       <button onClick={resetTranscript}>Reset</button>
 
-      <h3>press 🔴 record to start </h3>
+      <h3>{h3content}</h3>
 
-      <h1 style={{ color: "white" }}>{name}</h1>
+      <h1 className="nameOfCharPlaying" style={{ color: "white" }}>{nameOfCharPlaying}</h1>
 
-      <h3>Your Message: {transcript}</h3>
-      <h3> In Morse Code: {morseString}</h3>
+      <h3 className="yourMessage">Your Message: {transcript}</h3>
+      <h3 className="inMorse"> In Morse Code: {morseString}</h3>
+      
+
+     <h1 onClick={(e) => {
+          startListening();
+          afterRecord();
+        }}className={`${classNameButton}`}>🔴</h1>
+
+    <h1  onClick={(e) => {
+      convertTranscriptToMorseSound(transcript);
+      animationStart();
+      
+    }}className={`${classNamePlayButton}`}>🟢</h1>
+        
+
     </div>
+    
   );
 };
 
