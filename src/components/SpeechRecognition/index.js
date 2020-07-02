@@ -36,7 +36,7 @@ const Dictaphone = ({
 }) => {
   //ANIMATIONS
   const [color, setColor] = useState("");
-  const [name, setName] = useState("press record to start");
+  const [name, setName] = useState("press 🔴 record to start ");
   const [url, setUrl] = useState(off);
   const style = {
     textAlign: "center",
@@ -131,14 +131,14 @@ const Dictaphone = ({
           startListening();
         }}
       >
-        Record Message
+        <span>🔴</span> Message
       </button>
       <button
         onClick={(e) => {
           abortListening();
         }}
       >
-        Stop Recording
+        Stop Record
       </button>
 
       <button onClick={resetTranscript}>Reset</button>
