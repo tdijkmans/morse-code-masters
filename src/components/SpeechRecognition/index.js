@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
-import MorseToSound from "../MorseToSound";
 
-import MorseToAnimation from '../MorseToAnimation'
-import { func1, func2 } from "../functions";
+import { convertToMorseString } from "../../functions/convertTranscriptToMorseString";
+import { convertTranscriptToMorseSound } from "../../functions/convertTranscriptToMorseSound";
+import { convertMorseStringToChars } from "../../functions/convertMorseStringToChars";
 
+import MorseToAnimation from "../MorseToAnimation";
+import { conversionTable } from "../../functions/conversionTable";
+
+// SPEECH RECOGNITION
 const options = {
   autoStart: false,
 };
-
 const propTypes = {
-  // Props injected by SpeechRecognition
   transcript: PropTypes.string,
   resetTranscript: PropTypes.func,
   browserSupportsSpeechRecognition: PropTypes.bool,
@@ -26,94 +28,109 @@ const Dictaphone = ({
   abortListening,
   startListening,
 }) => {
+  //ANIMATIONS
+  const [color, setColor] = useState("");
   if (!browserSupportsSpeechRecognition) {
     return null;
   }
 
-  var conversionTable = {
-    a: "._",
-    b: "_...",
-    c: "_._.",
-    d: "_..",
-    e: ".",
-    f: ".._.",
-    g: "__.",
-    h: "....",
-    i: "..",
-    j: ".___",
-    k: "_._",
-    l: "._..",
-    m: "__",
-    n: "_.",
-    o: "___",
-    p: ".__.",
-    q: "__._",
-    r: "._.",
-    s: "...",
-    t: "_",
-    u: ".._",
-    v: "..._",
-    w: ".__",
-    x: "_.._",
-    y: "_.__",
-    z: "__..",
-    0: "_____",
-    1: ".____",
-    2: "..___",
-    3: "...__",
-    4: "...._",
-    5: ".....",
-    6: "_....",
-    7: "__...",
-    8: "___..",
-    9: "____.",
-    }; 
+  const morseString = convertToMorseString(transcript, conversionTable);
+  const morseStringCharacters = convertMorseStringToChars(morseString);
 
-    function convertToMorse(transcript) {
-      let morseString = [];
-      for (var i = 0; i <= transcript.length; i++) {
-      let toConvertChar = transcript.substr(i, 1).toLowerCase();
-      
-      let convertedChar = conversionTable[toConvertChar];
-      if (convertedChar === undefined) {
-      convertedChar = " ";
-      }
-      
-      morseString.push(convertedChar);
-      // recognised character
-      }
-      
-      return morseString;
-      } 
+  // ANIMATIONS 2
+  let timing;
+  let time = 0;
+  function soundShort() {
+    time = time + 20;
+    timing = setTimeout(colorShort, time);
+    time = time + 80;
+    timing = setTimeout(soundOff, time);
+  }
 
-      const morseString = convertToMorse(transcript); 
+  function soundLong() {
+    time = time + 20;
+    timing = setTimeout(colorLong, time);
+    time = time + 280;
+    timing = setTimeout(soundOff, time);
+  }
 
-      function startFunctions(){
-        func1();
-        func2();
+  function soundSpace() {
+    time = time + 20;
+    timing = setTimeout(colorSpace, time);
+    time = time + 680;
+    timing = setTimeout(soundOff, time);
+  }
+
+  function colorShort() {
+    setColor("green");
+  }
+
+  function colorLong() {
+    setColor("purple");
+  }
+
+  function colorSpace() {
+    setColor("red");
+  }
+
+  function soundOff() {
+    setColor("white");
+  }
+
+  function animationStart() {
+    morseStringCharacters.map((char) => {
+      if (char === ".") {
+        soundShort();
       }
+      if (char === "_") {
+        soundLong();
+      } else if (char === " ") {
+        soundSpace();
+      }
+    });
+  }
 
   return (
-    
     <div>
-
-    <h3>Transcript To Morse: {morseString}</h3>
-    <MorseToAnimation morseString={morseString} /> 
-
-    <button onClick={e=>startFunctions()}></button>
+      <h3>Transcript To Morse: {morseString}</h3>
+      <MorseToAnimation color={color} />
 
       <button onClick={resetTranscript}>Reset</button>
-      <MorseToSound
-        transcript={transcript}
-        abortListen={abortListening}
-        startListen={startListening}
-      />
+      <button
+        onClick={(e) => {
+          convertTranscriptToMorseSound(transcript);
+          animationStart();
+        }}
+      >
+        Play it!
+      </button>
+
+      <button
+        onClick={(e) => {
+          convertTranscriptToMorseSound("sos");
+        }}
+      >
+        SOS Test
+      </button>
+      <button
+        onClick={(e) => {
+          startListening();
+        }}
+      >
+        Record
+      </button>
+      <button
+        onClick={(e) => {
+          abortListening();
+        }}
+      >
+        Stop Record
+      </button>
+
       <h3>Transcript: {transcript}</h3>
-     
     </div>
   );
 };
 
 Dictaphone.propTypes = propTypes;
-
 export default SpeechRecognition(options)(Dictaphone);
