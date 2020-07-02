@@ -6,14 +6,13 @@ import { convertToMorseString } from "../../functions/convertTranscriptToMorseSt
 import { convertTranscriptToMorseSound } from "../../functions/convertTranscriptToMorseSound";
 import { convertMorseStringToChars } from "../../functions/convertMorseStringToChars";
 
-
 import { conversionTable } from "../../functions/conversionTable";
-import off from "../../assets/off.png"; 
-import between from '../../assets/between.png'
-import long from '../../assets/long.png'
-import short from '../../assets/short.png'
-import low from '../../assets/low.png'
-import './index.css'
+import off from "../../assets/off.png";
+import between from "../../assets/between.png";
+import long from "../../assets/long.png";
+import short from "../../assets/short.png";
+import low from "../../assets/low.png";
+import "./index.css";
 
 // SPEECH RECOGNITION
 const options = {
@@ -43,15 +42,12 @@ const Dictaphone = ({
     textAlign: "center",
     backgroundImage: `url(${url})`,
     backgroundColor: "white",
-    minHeight: '100vh',
-    minWidth: '100vw',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'auto',
-    margin: '0',
-    position: 'relative',
- 
-   
-   
+    minHeight: "100vh",
+    minWidth: "100vw",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "auto",
+    margin: "0",
+    position: "relative",
   };
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -105,7 +101,6 @@ const Dictaphone = ({
   function soundOff() {
     setColor("brown");
     setName(" ");
-    
   }
 
   function animationStart() {
@@ -121,12 +116,30 @@ const Dictaphone = ({
     });
   }
 
- 
-
   return (
     <div className="transition" style={style}>
-      <h3 >Transcript To Morse: {morseString}</h3>
-     
+      <button
+        onClick={(e) => {
+          convertTranscriptToMorseSound("sos");
+        }}
+      >
+        Send Test
+      </button>
+
+      <button
+        onClick={(e) => {
+          startListening();
+        }}
+      >
+        Record Message
+      </button>
+      <button
+        onClick={(e) => {
+          abortListening();
+        }}
+      >
+        Stop Recording
+      </button>
 
       <button onClick={resetTranscript}>Reset</button>
       <button
@@ -135,33 +148,12 @@ const Dictaphone = ({
           animationStart();
         }}
       >
-        Play it!
+        Send Message
       </button>
+      <h1 style={{ color: "white" }}>{name}</h1>
 
-      <button
-        onClick={(e) => {
-          convertTranscriptToMorseSound("sos");
-        }}
-      >
-        SOS Test
-      </button>
-      <button
-        onClick={(e) => {
-          startListening();
-        }}
-      >
-        Record
-      </button>
-      <button
-        onClick={(e) => {
-          abortListening();
-        }}
-      >
-        Stop Record
-      </button>
-
-      <h3>Transcript: {transcript}</h3>
-      <h1 style={{color: "white"}}>{name}</h1>
+      <h3>Your Message: {transcript}</h3>
+      <h3> In Morse Code: {morseString}</h3>
     </div>
   );
 };

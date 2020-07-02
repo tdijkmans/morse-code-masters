@@ -1,20 +1,29 @@
-
 h1 {
-    font-size: 60px;
+  font-size: 60px;
+
+  font-family: "Roboto", sans-serif;
 }
 
 h3 {
-    color: white;
+  color: white;
 }
 
 .h3Top {
-    margin-top: 200px;
+  margin-top: 200px;
 }
 
-background-image {    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-     -ms-transition: all .4s ease;
-      -o-transition: all .4s ease;
-         transition: all .4s ease;
+background-image {
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
 
+button {
+  color: white;
+  background-color: transparent;
+  width: 120px;
+  height: 50px;
+  border-width: 0px;
 }
