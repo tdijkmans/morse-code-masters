@@ -30,6 +30,7 @@ const Dictaphone = ({
 }) => {
   //ANIMATIONS
   const [color, setColor] = useState("");
+  const [name, setName ] = useState('press record to start')
   if (!browserSupportsSpeechRecognition) {
     return null;
   }
@@ -41,40 +42,44 @@ const Dictaphone = ({
   let timing;
   let time = 0;
   function soundShort() {
-    time = time + 20;
+    time = time + 85;
     timing = setTimeout(colorShort, time);
-    time = time + 80;
+    time = time + 180;
     timing = setTimeout(soundOff, time);
   }
 
   function soundLong() {
-    time = time + 20;
+    time = time + 85;
     timing = setTimeout(colorLong, time);
-    time = time + 280;
+    time = time + 380;
     timing = setTimeout(soundOff, time);
   }
 
   function soundSpace() {
-    time = time + 20;
+    time = time + 85;
     timing = setTimeout(colorSpace, time);
-    time = time + 680;
+    time = time + 980;
     timing = setTimeout(soundOff, time);
   }
 
   function colorShort() {
     setColor("green");
+    setName('.')
   }
 
   function colorLong() {
     setColor("purple");
+    setName('_')
   }
 
   function colorSpace() {
     setColor("red");
+    setName('space')
   }
 
   function soundOff() {
-    setColor("white");
+    setColor("brown");
+    setName(' ')
   }
 
   function animationStart() {
@@ -93,7 +98,7 @@ const Dictaphone = ({
   return (
     <div>
       <h3>Transcript To Morse: {morseString}</h3>
-      <MorseToAnimation color={color} />
+      <MorseToAnimation color={color} name={name} />
 
       <button onClick={resetTranscript}>Reset</button>
       <button

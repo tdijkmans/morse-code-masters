@@ -3,7 +3,7 @@ var globalAudioContext = new window.AudioContext();
 export function convertTranscriptToMorseSound(text) {
   // defaults
   const unit = 0.1;
-  const freq = 500;
+  const freq = 200;
   var cont = globalAudioContext;
   var time = cont.currentTime;
 
