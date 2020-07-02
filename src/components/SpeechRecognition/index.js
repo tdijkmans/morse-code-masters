@@ -36,7 +36,7 @@ const Dictaphone = ({
 }) => {
   //ANIMATIONS
   const [color, setColor] = useState("");
-  const [name, setName] = useState("press 🔴 record to start ");
+  const [name, setName] = useState("");
   const [url, setUrl] = useState(off);
   const style = {
     textAlign: "center",
@@ -123,7 +123,7 @@ const Dictaphone = ({
           convertTranscriptToMorseSound("sos");
         }}
       >
-        Send Test
+        Send SOS
       </button>
 
       <button
@@ -138,18 +138,21 @@ const Dictaphone = ({
           abortListening();
         }}
       >
-        Stop Record
+        ◽ Stop
       </button>
 
-      <button onClick={resetTranscript}>Reset</button>
       <button
         onClick={(e) => {
           convertTranscriptToMorseSound(transcript);
           animationStart();
         }}
       >
-        Send Message
+        ▶ Play
       </button>
+      <button onClick={resetTranscript}>Reset</button>
+
+      <h3>press 🔴 record to start </h3>
+
       <h1 style={{ color: "white" }}>{name}</h1>
 
       <h3>Your Message: {transcript}</h3>
