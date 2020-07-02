@@ -42,21 +42,21 @@ const Dictaphone = ({
   let timing;
   let time = 0;
   function soundShort() {
-    time = time + 85;
+    time = time + 80;
     timing = setTimeout(colorShort, time);
     time = time + 180;
     timing = setTimeout(soundOff, time);
   }
 
   function soundLong() {
-    time = time + 85;
+    time = time + 80;
     timing = setTimeout(colorLong, time);
     time = time + 380;
     timing = setTimeout(soundOff, time);
   }
 
   function soundSpace() {
-    time = time + 85;
+    time = time + 80;
     timing = setTimeout(colorSpace, time);
     time = time + 980;
     timing = setTimeout(soundOff, time);
