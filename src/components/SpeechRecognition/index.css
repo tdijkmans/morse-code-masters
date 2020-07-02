@@ -10,3 +10,11 @@ h3 {
 .h3Top {
     margin-top: 200px;
 }
+
+background-image {    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+     -ms-transition: all .4s ease;
+      -o-transition: all .4s ease;
+         transition: all .4s ease;
+
+}

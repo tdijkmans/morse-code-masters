@@ -49,6 +49,7 @@ const Dictaphone = ({
     backgroundSize: 'auto',
     margin: '0',
     position: 'relative',
+ 
    
    
   };
@@ -98,13 +99,13 @@ const Dictaphone = ({
   function colorSpace() {
     setColor("red");
     setName("space");
-    setUrl(low);
+    setUrl(off);
   }
 
   function soundOff() {
     setColor("brown");
     setName(" ");
-    setUrl(off);
+    
   }
 
   function animationStart() {
@@ -123,7 +124,7 @@ const Dictaphone = ({
  
 
   return (
-    <div style={style}>
+    <div className="transition" style={style}>
       <h3 >Transcript To Morse: {morseString}</h3>
      
 
