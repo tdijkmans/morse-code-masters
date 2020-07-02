@@ -1,5 +1,13 @@
+.body {
+  
+}
+
 .App {
   text-align: center;
+  background-image: "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png";
+  background-color: purple;
+  height: 900px;
+  
 }
 
 .App-logo {
