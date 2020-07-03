@@ -132,9 +132,24 @@ const Dictaphone = ({
   }
 
   function reset(){
-    console.log('time is', time);
-    setTimeout(pageRefresh,time +1000)
     
+    setTimeout(pageRefresh,time +100)
+    
+  }
+
+  function animateSOS() {
+    const morseSOS = convertToMorseString("SOS", conversionTable);
+    const morseStringSOS = convertMorseStringToChars(morseSOS);
+    morseStringSOS.map((char) => {
+      if (char === ".") {
+        soundShort();
+      }
+      if (char === "_") {
+        soundLong();
+      } else if (char === " ") {
+        soundSpace();
+      }
+    })
   }
 
   return (
@@ -142,6 +157,7 @@ const Dictaphone = ({
       <button
         onClick={(e) => {
           convertTranscriptToMorseSound("sos");
+          animateSOS(); 
         }}
       >
         Send SOS
@@ -166,6 +182,7 @@ const Dictaphone = ({
         onClick={(e) => {
           convertTranscriptToMorseSound(transcript);
           animationStart();
+          abortListening();
         }}
       >
         ▶ Play
