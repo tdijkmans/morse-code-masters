@@ -14,13 +14,13 @@ h3 {
 
 .yourMessage{
     position: fixed;
-    right: 48%;
+    right: 49%;
     top: 25%;
 }
 
 .inMorse {
     position: fixed;
-    right: 48%;
+    right: 49%;
     top: 28%;
 }
 
@@ -48,7 +48,7 @@ button {
 .start {
     cursor: grab;
     position: fixed;
-    right: 50%;
+    right: 50.5%;
     top: 11%;
    
    
@@ -58,10 +58,12 @@ button {
    
     cursor: grab;
     position: fixed;
-    right: 50%;
+    right: 50.5%;
     top: 11%;
 }
-
+.greenButton {
+  color: rgb(45, 253, 4);
+}
 .hide {
     display: none;
 }

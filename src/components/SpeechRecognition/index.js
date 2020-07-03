@@ -35,6 +35,7 @@ const Dictaphone = ({
   startListening,
 }) => {
   //ANIMATIONS
+  
   const [color, setColor] = useState("");
   const [nameOfCharPlaying, setNameOfCharPlaying] = useState("");
   const [url, setUrl] = useState(off);
@@ -122,7 +123,17 @@ const Dictaphone = ({
   function afterRecord(){
     setClassNameButton('hide');
     setClassNamePlayButton('green')
-    setH3Content(`press 🟢 to start playing`)
+    setH3Content(`press ▶ to start playing`)
+    
+  }
+
+  function pageRefresh(){
+    window.location.reload()
+  }
+
+  function reset(){
+    console.log('time is', time);
+    setTimeout(pageRefresh,time +1000)
     
   }
 
@@ -159,7 +170,7 @@ const Dictaphone = ({
       >
         ▶ Play
       </button>
-      <button onClick={resetTranscript}>Reset</button>
+      <button onClick={pageRefresh}>Reset</button>
 
       <h3>{h3content}</h3>
 
@@ -176,9 +187,11 @@ const Dictaphone = ({
 
     <h1  onClick={(e) => {
       convertTranscriptToMorseSound(transcript);
+      abortListening();
       animationStart();
+      reset();
       
-    }}className={`${classNamePlayButton}`}>🟢</h1>
+    }}className={`${classNamePlayButton}`}><span className="greenButton">▶</span></h1>
         
 
     </div>
