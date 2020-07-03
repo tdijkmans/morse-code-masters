@@ -38,9 +38,9 @@ const Dictaphone = ({
   const [color, setColor] = useState("");
   const [nameOfCharPlaying, setNameOfCharPlaying] = useState("");
   const [url, setUrl] = useState(off);
-  const [classNameButton, setClassNameButton] = useState('start')
-  const [classNamePlayButton, setClassNamePlayButton ] = useState('hide')
-  const [h3content, setH3Content ] = useState(`press 🔴 record to start`)
+  const [classNameButton, setClassNameButton] = useState("start");
+  const [classNamePlayButton, setClassNamePlayButton] = useState("hide");
+  const [h3content, setH3Content] = useState(`press 🔴 record to start`);
   const style = {
     textAlign: "center",
     backgroundImage: `url(${url})`,
@@ -119,11 +119,25 @@ const Dictaphone = ({
     });
   }
 
-  function afterRecord(){
-    setClassNameButton('hide');
-    setClassNamePlayButton('green')
-    setH3Content(`press 🟢 to start playing`)
-    
+  function afterRecord() {
+    setClassNameButton("hide");
+    setClassNamePlayButton("green");
+    setH3Content(`press 🟢 to start playing`);
+  }
+
+  function animateSOS() {
+    const morseSOS = convertToMorseString("SOS", conversionTable);
+    const morseStringSOS = convertMorseStringToChars(morseSOS);
+    morseStringSOS.map((char) => {
+      if (char === ".") {
+        soundShort();
+      }
+      if (char === "_") {
+        soundLong();
+      } else if (char === " ") {
+        soundSpace();
+      }
+    });
   }
 
   return (
@@ -131,6 +145,7 @@ const Dictaphone = ({
       <button
         onClick={(e) => {
           convertTranscriptToMorseSound("sos");
+          animateSOS();
         }}
       >
         Send SOS
@@ -163,26 +178,33 @@ const Dictaphone = ({
 
       <h3>{h3content}</h3>
 
-      <h1 className="nameOfCharPlaying" style={{ color: "white" }}>{nameOfCharPlaying}</h1>
+      <h1 className="nameOfCharPlaying" style={{ color: "white" }}>
+        {nameOfCharPlaying}
+      </h1>
 
       <h3 className="yourMessage">Your Message: {transcript}</h3>
       <h3 className="inMorse"> In Morse Code: {morseString}</h3>
-      
 
-     <h1 onClick={(e) => {
+      <h1
+        onClick={(e) => {
           startListening();
           afterRecord();
-        }}className={`${classNameButton}`}>🔴</h1>
+        }}
+        className={`${classNameButton}`}
+      >
+        🔴
+      </h1>
 
-    <h1  onClick={(e) => {
-      convertTranscriptToMorseSound(transcript);
-      animationStart();
-      
-    }}className={`${classNamePlayButton}`}>🟢</h1>
-        
-
+      <h1
+        onClick={(e) => {
+          convertTranscriptToMorseSound(transcript);
+          animationStart();
+        }}
+        className={`${classNamePlayButton}`}
+      >
+        🟢
+      </h1>
     </div>
-    
   );
 };
 
