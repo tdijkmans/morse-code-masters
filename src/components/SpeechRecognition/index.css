@@ -1,0 +1,73 @@
+
+
+h1 {
+  font-size: 60px;
+
+  font-family: "Roboto", sans-serif;
+}
+
+h3 {
+  color: white;
+  
+
+}
+
+.yourMessage{
+    position: fixed;
+    right: 49%;
+    top: 25%;
+}
+
+.inMorse {
+    position: fixed;
+    right: 49%;
+    top: 28%;
+}
+
+.h3Top {
+  margin-top: 200px;
+}
+
+background-image {
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+button {
+  color: white;
+  background-color: transparent;
+  width: 120px;
+  height: 50px;
+  border-width: 0px;
+}
+
+
+.start {
+    cursor: grab;
+    position: fixed;
+    right: 50.5%;
+    top: 11%;
+   
+   
+}
+
+.green {
+   
+    cursor: grab;
+    position: fixed;
+    right: 50.5%;
+    top: 11%;
+}
+.greenButton {
+  color: rgb(45, 253, 4);
+}
+.hide {
+    display: none;
+}
+
+.nameOfCharPlaying {
+    margin-top: 200px;
+}
