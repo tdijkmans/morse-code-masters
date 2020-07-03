@@ -7,7 +7,7 @@ import { convertTranscriptToMorseSound } from "../../functions/convertTranscript
 import { convertMorseStringToChars } from "../../functions/convertMorseStringToChars";
 
 import { conversionTable } from "../../functions/conversionTable";
-import off from "../../assets/off.png";
+
 import between from "../../assets/between.png";
 import long from "../../assets/long.png";
 import short from "../../assets/short.png";
@@ -35,13 +35,12 @@ const Dictaphone = ({
   startListening,
 }) => {
   //ANIMATIONS
-  
-  const [color, setColor] = useState("");
+
   const [nameOfCharPlaying, setNameOfCharPlaying] = useState("");
-  const [url, setUrl] = useState(off);
-  const [classNameButton, setClassNameButton] = useState('start')
-  const [classNamePlayButton, setClassNamePlayButton ] = useState('hide')
-  const [h3content, setH3Content ] = useState(`press 🔴 record to start`)
+  const [url, setUrl] = useState(low);
+  const [classNameButton, setClassNameButton] = useState("start");
+  const [classNamePlayButton, setClassNamePlayButton] = useState("hide");
+  const [h3content, setH3Content] = useState(`press 🔴 record to start`);
   const style = {
     textAlign: "center",
     backgroundImage: `url(${url})`,
@@ -63,78 +62,78 @@ const Dictaphone = ({
   // ANIMATIONS 2
   let timing;
   let time = 0;
-  function soundShort() {
-    time = time + 80;
-    timing = setTimeout(colorShort, time);
+  let transitionTime = 20;
+  function animateShort() {
+    time = time + 80 - transitionTime;
+    timing = setTimeout(displayShort, time);
+    time = time + transitionTime;
+    timing = setTimeout(displayBetween, time);
     time = time + 180;
-    timing = setTimeout(soundOff, time);
+    timing = setTimeout(displaySpace, time);
   }
 
-  function soundLong() {
-    time = time + 80;
-    timing = setTimeout(colorLong, time);
+  function animateLong() {
+    time = time + 80 - transitionTime;
+    timing = setTimeout(displayLong, time);
+    time = time + transitionTime;
+    timing = setTimeout(displayBetween, time);
     time = time + 380;
-    timing = setTimeout(soundOff, time);
+    timing = setTimeout(displaySpace, time);
   }
 
-  function soundSpace() {
-    time = time + 80;
-    timing = setTimeout(colorSpace, time);
+  function animateSpace() {
+    time = time + 80 - transitionTime;
+    timing = setTimeout(displaySpace, time);
+    time = time + transitionTime;
+    timing = setTimeout(displayBetween, time);
     time = time + 820;
-    timing = setTimeout(soundOff, time);
+    timing = setTimeout(displaySpace, time);
   }
 
-  function colorShort() {
-    setColor("green");
+  function displayShort() {
     setNameOfCharPlaying(".");
     setUrl(short);
   }
 
-  function colorLong() {
-    setColor("purple");
+  function displayLong() {
     setNameOfCharPlaying("_");
     setUrl(long);
   }
 
-  function colorSpace() {
-    setColor("red");
-    setNameOfCharPlaying("─");
-    setUrl(off);
+  function displayBetween() {
+    setUrl(between);
   }
 
-  function soundOff() {
-    setColor("brown");
-    setNameOfCharPlaying(" ");
+  function displaySpace() {
+    setNameOfCharPlaying("-");
+    setUrl(low);
   }
 
   function animationStart() {
     morseStringCharacters.map((char) => {
       if (char === ".") {
-        soundShort();
+        animateShort();
       }
       if (char === "_") {
-        soundLong();
+        animateLong();
       } else if (char === " ") {
-        soundSpace();
+        animateSpace();
       }
     });
   }
 
-  function afterRecord(){
-    setClassNameButton('hide');
-    setClassNamePlayButton('green')
-    setH3Content(`press ▶ to start playing`)
-    
+  function afterRecord() {
+    setClassNameButton("hide");
+    setClassNamePlayButton("green");
+    setH3Content(`press ▶ to start playing`);
   }
 
-  function pageRefresh(){
-    window.location.reload()
+  function pageRefresh() {
+    window.location.reload();
   }
 
-  function reset(){
-    
-    setTimeout(pageRefresh,time +100)
-    
+  function reset() {
+    setTimeout(pageRefresh, time + 100);
   }
 
   function animateSOS() {
@@ -142,14 +141,14 @@ const Dictaphone = ({
     const morseStringSOS = convertMorseStringToChars(morseSOS);
     morseStringSOS.map((char) => {
       if (char === ".") {
-        soundShort();
+        animateShort();
       }
       if (char === "_") {
-        soundLong();
+        animateLong();
       } else if (char === " ") {
-        soundSpace();
+        animateSpace();
       }
-    })
+    });
   }
 
   return (
@@ -157,7 +156,7 @@ const Dictaphone = ({
       <button
         onClick={(e) => {
           convertTranscriptToMorseSound("sos");
-          animateSOS(); 
+          animateSOS();
         }}
       >
         Send SOS
@@ -191,28 +190,35 @@ const Dictaphone = ({
 
       <h3>{h3content}</h3>
 
-      <h1 className="nameOfCharPlaying" style={{ color: "white" }}>{nameOfCharPlaying}</h1>
+      <h1 className="nameOfCharPlaying" style={{ color: "white" }}>
+        {nameOfCharPlaying}
+      </h1>
 
       <h3 className="yourMessage">Your Message: {transcript}</h3>
       <h3 className="inMorse"> In Morse Code: {morseString}</h3>
-      
 
-     <h1 onClick={(e) => {
+      <h1
+        onClick={(e) => {
           startListening();
           afterRecord();
-        }}className={`${classNameButton}`}>🔴</h1>
+        }}
+        className={`${classNameButton}`}
+      >
+        🔴
+      </h1>
 
-    <h1  onClick={(e) => {
-      convertTranscriptToMorseSound(transcript);
-      abortListening();
-      animationStart();
-      reset();
-      
-    }}className={`${classNamePlayButton}`}><span className="greenButton">▶</span></h1>
-        
-
+      <h1
+        onClick={(e) => {
+          convertTranscriptToMorseSound(transcript);
+          abortListening();
+          animationStart();
+          reset();
+        }}
+        className={`${classNamePlayButton}`}
+      >
+        <span className="greenButton">▶</span>
+      </h1>
     </div>
-    
   );
 };
 
