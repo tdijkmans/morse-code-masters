@@ -242,7 +242,7 @@ const Dictaphone = ({
 
       <div
         style={{
-          marginTop: "800px",
+          marginTop: "500px",
           width: "500px",
           marginLeft: "820px",
           color: "white",
