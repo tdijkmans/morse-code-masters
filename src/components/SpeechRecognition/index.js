@@ -35,12 +35,15 @@ const Dictaphone = ({
   startListening,
 }) => {
   //ANIMATIONS
-
   const [nameOfCharPlaying, setNameOfCharPlaying] = useState("");
   const [url, setUrl] = useState(low);
   const [classNameButton, setClassNameButton] = useState("start");
   const [classNamePlayButton, setClassNamePlayButton] = useState("hide");
   const [h3content, setH3Content] = useState(`press 🔴 record to start`);
+  const [answer, setAnswer] = useState(
+    "Vessel in distress! Captain, your vessel is caught in a wild storm and flooding quickly. Call for help to save you and your crew from drowning. But SOS gives no response! Hurry, send the right message to save our souls!"
+  );
+
   const style = {
     textAlign: "center",
     backgroundImage: `url(${url})`,
@@ -132,8 +135,24 @@ const Dictaphone = ({
     window.location.reload();
   }
 
-  function reset() {
-    setTimeout(pageRefresh, time + 100);
+  function respondToMessage() {
+    console.log("time", time);
+    const magicWord = "please";
+    const messageResponse = {
+      right:
+        "Well done, captain! You have made it ashore and save many lives from certain death.",
+      wrong: "No response, nothing happens! Try another 'magic word'!",
+    };
+    if (transcript === magicWord) {
+      setAnswer(messageResponse.right);
+    } else {
+      setAnswer(messageResponse.wrong);
+    }
+  }
+
+  function checkAnswer() {
+    setTimeout(respondToMessage, time + 100);
+    setTimeout(pageRefresh, time + 5000);
   }
 
   function animateSOS() {
@@ -167,7 +186,7 @@ const Dictaphone = ({
           startListening();
         }}
       >
-        <span>🔴</span> Message
+        <span role="img">🔴</span> Message
       </button>
       <button
         onClick={(e) => {
@@ -204,7 +223,7 @@ const Dictaphone = ({
         }}
         className={`${classNameButton}`}
       >
-        🔴
+        <span role="img">🔴</span>
       </h1>
 
       <h1
@@ -212,12 +231,27 @@ const Dictaphone = ({
           convertTranscriptToMorseSound(transcript);
           abortListening();
           animationStart();
-          reset();
+          checkAnswer();
         }}
         className={`${classNamePlayButton}`}
       >
-        <span className="greenButton">▶</span>
+        <span className="greenButton" role="img">
+          ▶
+        </span>
       </h1>
+
+      <div
+        style={{
+          marginTop: "800px",
+          width: "500px",
+          marginLeft: "820px",
+          color: "white",
+          textAlign: "right",
+          lineHeight: "2.5em",
+        }}
+      >
+        <h2>{answer}</h2>
+      </div>
     </div>
   );
 };
