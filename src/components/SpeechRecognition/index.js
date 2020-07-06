@@ -209,9 +209,9 @@ const Dictaphone = ({
 
       <h3>{h3content}</h3>
 
-      <h1 className="nameOfCharPlaying" style={{ color: "white" }}>
+      {/* <h1 className="nameOfCharPlaying" style={{ color: "white" }}>
         {nameOfCharPlaying}
-      </h1>
+      </h1> */}
 
       <h3 className="yourMessage">Your Message: {transcript}</h3>
       <h3 className="inMorse"> In Morse Code: {morseString}</h3>
@@ -242,15 +242,16 @@ const Dictaphone = ({
 
       <div
         style={{
-          marginTop: "800px",
+          marginTop: "500px",
           width: "500px",
           marginLeft: "820px",
           color: "white",
           textAlign: "right",
           lineHeight: "2.5em",
+          position: "relative",
         }}
       >
-        <h2>{answer}</h2>
+        <p>{answer}</p>
       </div>
     </div>
   );
