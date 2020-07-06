@@ -22,4 +22,4 @@ As part of Codaisseur's web development bootcamp an assignment was given: build 
 
 ### App demo
 
-![CaptainMorse](https://github.com/tdijkmans/morse-code-masters/blob/master/readme-assets/Captain-morse.gif)
+! [CaptainMorse](https://github.com/tdijkmans/morse-code-masters/blob/master/readme-assets/Captain-morse.gif)
