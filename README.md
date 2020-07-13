@@ -7,6 +7,7 @@ Captain Morse is a little word-guessing game using Morse Code. The app outlines 
 ### Live working version
 
 [Click here](https://captain-morse.netlify.app/)
+*** note: The only browser that currently supports this app is Google Chrome, this is due voice recognition software.
 
 ### Goals of this project
 
