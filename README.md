@@ -6,7 +6,7 @@ Captain Morse is a little word-guessing game using Morse Code. The app outlines 
 
 ### Live working version
 
-[Click here](https://unruffled-nobel-419aec.netlify.app/)
+[Click here](https://captain-morse.netlify.app/)
 
 ### Goals of this project
 
