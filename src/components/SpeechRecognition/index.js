@@ -251,7 +251,7 @@ const Dictaphone = ({
           position: "relative",
         }}
       >
-        <h2>{answer}</h2>
+        <p>{answer}</p>
       </div>
     </div>
   );
